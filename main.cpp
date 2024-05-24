@@ -180,7 +180,29 @@ void Board::handleLeft() {
 }
 
 void Board::handleRight() {
-
+    for(int row = 0; row < this -> SIZE; row++) {
+        for(int col = this->SIZE-2; col >= 0; col--) {
+            if(this -> board[row][col] == 0) {
+                continue;
+            }
+            int currCol = col;
+            while (currCol < 3) {
+                if(this -> board[row][currCol+1] == this -> board[row][currCol]) {
+                    this -> board[row][currCol+1] *= 2;
+                    this -> board[row][currCol] = 0;
+                    break;
+                }
+                else if(this -> board[row][currCol+1] == 0) {
+                    this -> board[row][currCol+1] = this -> board[row][currCol];
+                    this -> board[row][currCol] = 0;
+                    currCol++;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+    generateRandom();
 }
 
 int main() {
