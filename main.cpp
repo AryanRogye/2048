@@ -24,9 +24,8 @@ public:
         int randCol2 = rand() % 4;
         //if the 2nd locations is equal to the first then need to change again
         while(randRow2 == randRow1 && randCol1 == randCol2) {
-            cout << "both the same" << endl;
-            int randRow2 = rand() % 4;
-            int randCol2 = rand() % 4;
+            randRow2 = rand() % 4;
+            randCol2 = rand() % 4;
         }
 
         cout << "rand row -- " << randRow1 << " rand col -- " << randCol1 << endl;
