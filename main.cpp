@@ -102,6 +102,7 @@ void Board::startGame() {
 void Board::handleUp() {
     //start at col 1 then move everything up
     //if above is 0 then can move up if up matches with number than add
+    bool moved = false;
     for(int row = 1; row < this -> SIZE; row++) {
         for(int col = 0; col < this -> SIZE; col++) {
             if(this -> board[row][col] == 0) {
@@ -110,11 +111,13 @@ void Board::handleUp() {
             int currRow = row;
             while (currRow > 0) {
                 if(this -> board[currRow-1][col] == this -> board[currRow][col]) {
+                    moved = true;
                     this -> board[currRow-1][col] *= 2;
                     this -> board[currRow][col] = 0;
                     break;
                 }
                 else if(this -> board[currRow-1][col] == 0) {
+                    moved = true;
                     this -> board[currRow-1][col] = this -> board[currRow][col];
                     this -> board[currRow][col] = 0;
                     currRow--;
@@ -124,10 +127,12 @@ void Board::handleUp() {
             }
         }
     }
-    generateRandom();
+    if(moved) generateRandom();
+    else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
 void Board::handleDown() {
+    bool moved = false;
     for(int row = this -> SIZE-2; row >= 0; row--) {
         for(int col = 0; col < this -> SIZE; col++) {
             if(this -> board[row][col] == 0) {
@@ -136,11 +141,13 @@ void Board::handleDown() {
             int currRow = row;
             while (currRow < 3) {
                 if(this -> board[currRow+1][col] == this -> board[currRow][col]) {
+                    moved = true;
                     this -> board[currRow+1][col] *= 2;
                     this -> board[currRow][col] = 0;
                     break;
                 }
                 else if(this -> board[currRow+1][col] == 0) {
+                    moved = true;
                     this -> board[currRow+1][col] = this -> board[currRow][col];
                     this -> board[currRow][col] = 0;
                     currRow++;
@@ -150,10 +157,12 @@ void Board::handleDown() {
             }
         }
     }
-    generateRandom();
+    if(moved) generateRandom();
+    else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
 void Board::handleLeft() {
+    bool moved = false;
     for(int row = 0; row < this -> SIZE; row++) {
         for(int col = 1; col < this -> SIZE; col++) {
             if(this -> board[row][col] == 0) {
@@ -162,11 +171,13 @@ void Board::handleLeft() {
             int currCol = col;
             while (currCol > 0) {
                 if(this -> board[row][currCol-1] == this -> board[row][currCol]) {
+                    moved = true;
                     this -> board[row][currCol-1] *= 2;
                     this -> board[row][currCol] = 0;
                     break;
                 }
                 else if(this -> board[row][currCol-1] == 0) {
+                    moved = true;
                     this -> board[row][currCol-1] = this -> board[row][currCol];
                     this -> board[row][currCol] = 0;
                     currCol--;
@@ -176,10 +187,12 @@ void Board::handleLeft() {
             }
         }
     }
-    generateRandom();
+    if(moved) generateRandom();
+    else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
 void Board::handleRight() {
+    bool moved = false;
     for(int row = 0; row < this -> SIZE; row++) {
         for(int col = this->SIZE-2; col >= 0; col--) {
             if(this -> board[row][col] == 0) {
@@ -188,11 +201,13 @@ void Board::handleRight() {
             int currCol = col;
             while (currCol < 3) {
                 if(this -> board[row][currCol+1] == this -> board[row][currCol]) {
+                    moved = true;
                     this -> board[row][currCol+1] *= 2;
                     this -> board[row][currCol] = 0;
                     break;
                 }
                 else if(this -> board[row][currCol+1] == 0) {
+                    moved = true;
                     this -> board[row][currCol+1] = this -> board[row][currCol];
                     this -> board[row][currCol] = 0;
                     currCol++;
@@ -202,7 +217,8 @@ void Board::handleRight() {
             }
         }
     }
-    generateRandom();
+    if(moved) generateRandom();
+    else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
 int main() {
