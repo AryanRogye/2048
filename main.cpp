@@ -102,8 +102,8 @@ void Board::startGame() {
 void Board::handleUp() {
     //start at col 1 then move everything up
     //if above is 0 then can move up if up matches with number than add
-    for(int row = 0; row < this -> SIZE; row++) {
-        for(int col = 1; col < this -> SIZE; col++) {
+    for(int row = 1; row < this -> SIZE; row++) {
+        for(int col = 0; col < this -> SIZE; col++) {
             if(this -> board[row][col] == 0) {
                 continue;
             }
@@ -119,6 +119,8 @@ void Board::handleUp() {
                     this -> board[currRow-1][col] = this -> board[currRow][col];
                     this -> board[currRow][col] = 0;
                     currRow--;
+                } else {
+                    break;
                 }
             }
         }
