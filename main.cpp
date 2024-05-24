@@ -100,7 +100,30 @@ void Board::startGame() {
 }
 
 void Board::handleUp() {
-
+    //start at col 1 then move everything up
+    //if above is 0 then can move up if up matches with number than add
+    for(int row = 0; row < this -> SIZE; row++) {
+        for(int col = 1; col < this -> SIZE; col++) {
+            if(this -> board[row][col] == 0) {
+                continue;
+            }
+            bool uptop = false;
+            int currRow = row;
+            while (currRow > 0) {
+                if(this -> board[currRow-1][col] == this -> board[currRow][col]) {
+                    this -> board[currRow-1][col] *= 2;
+                    this -> board[currRow][col] = 0;
+                    break;
+                }
+                else if(this -> board[currRow-1][col] == 0) {
+                    this -> board[currRow-1][col] = this -> board[currRow][col];
+                    this -> board[currRow][col] = 0;
+                    currRow--;
+                }
+            }
+        }
+    }
+    generateRandom();
 }
 
 void Board::handleDown() {
