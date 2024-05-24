@@ -55,11 +55,30 @@ public:
         }
     }
 
+    void startGame() {
+        string input = "";
+        while(input != "q") {
+            displayBoard();
+            cout << "Enter Your Next Move : ";
+            cin >> input;
+            if(input == "\033[A") {
+                cout << "up" << endl;
+            }
+            if(input == "\033[D") {
+                cout << "left" << endl;
+            }
+            if(input == "\033[B") {
+                cout << "down" << endl;
+            }
+            if(input == "\033[C") {
+                cout << "right" << endl;
+            }
+        }
+    }
 };
 
 int main() {
     srand(time(nullptr));
-
     Board b;
-    b.displayBoard();
+    b.startGame();
 }
