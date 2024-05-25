@@ -10,6 +10,7 @@ Board::Board() {
     }
     generateRandom();
     generateRandom();
+    storeBoard();
 }
 
 void Board::generateRandom() {
@@ -72,6 +73,9 @@ void Board::startGame() {
             cout << "right" << endl;
             handleRight();
         }
+        if(input == "u") {
+            undoBoard();
+        }
     }
 }
 
@@ -103,7 +107,10 @@ void Board::handleUp() {
             }
         }
     }
-    if(moved) generateRandom();
+    if(moved) {
+        generateRandom();
+        storeBoard();
+    }
     else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
@@ -132,8 +139,10 @@ void Board::handleDown() {
                 }
             }
         }
-    }
-    if(moved) generateRandom();
+    }if(moved) {
+        generateRandom();
+        storeBoard();
+    }if(moved) generateRandom();
     else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
@@ -163,7 +172,10 @@ void Board::handleLeft() {
             }
         }
     }
-    if(moved) generateRandom();
+    if(moved) {
+        generateRandom();
+        storeBoard();
+    }
     else cout << "CANT MOVE TRY AGAIN" << endl;
 }
 
@@ -193,6 +205,64 @@ void Board::handleRight() {
             }
         }
     }
-    if(moved) generateRandom();
+    if(moved) {
+        generateRandom();
+        storeBoard();
+    }
     else cout << "CANT MOVE TRY AGAIN" << endl;
+}
+
+void Board::storeBoard() {
+    int (*toAdd)[4] = new int[4][4]; // Allocate memory for a copy of the board
+
+    for (int row = 0; row < SIZE; row++) {
+        for (int col = 0; col < SIZE; col++) {
+            toAdd[row][col] = board[row][col];
+        }
+    }
+    boards.push(toAdd);
+}
+
+void Board::printAllPastBoards() {
+    stack<int(*)[4]> tempStack = boards;
+
+    while (!tempStack.empty()) {
+        int (*tempBoard)[4] = tempStack.top();
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                cout << tempBoard[row][col] << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+
+        tempStack.pop();
+    }
+}
+
+void Board::undoBoard() {
+    if (!boards.empty()) {
+        boards.pop();
+        if (!boards.empty()) {
+            int (*topBoard)[4] = boards.top();
+            for(int i = 0; i < this -> SIZE; i++) {
+                for(int j = 0; j < this -> SIZE; j++) {
+                    this -> board[i][j] = topBoard[i][j];
+                }
+            }
+        } else {
+            cout << "CANT UNDO" << endl;
+        }
+    } else {
+        cout << "CANT UNDO" << endl;
+    }
+}
+
+
+Board::~Board() {
+    while (!boards.empty()) {
+        int (*toRemove)[4] = boards.top();
+        delete[] toRemove;
+        boards.pop();
+    }
 }
