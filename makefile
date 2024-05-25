@@ -1,5 +1,5 @@
 build:
-	g++ main.cpp -o main.o
+	g++ main.cpp Board.cpp -o main.o
 
 run: build
 	./main.o
